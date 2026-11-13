@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" fill="none">
+  <title>data-droid-hub Horizontal Lockup</title>
+  <rect width="1200" height="320" rx="28" fill="#0D1014"/>
+  <!-- Embedded Mark scaled to 224x224 at (48, 48) -->
+  <g transform="translate(48, 48) scale(0.4375)">
+    <rect width="512" height="512" rx="108" fill="#141820" stroke="#28303E" stroke-width="4"/>
+    <path d="M117.44 214V176L256 96L394.56 176V214" stroke="#F4F5F0" stroke-width="28" stroke-linecap="butt" stroke-linejoin="miter"/>
+    <path d="M394.56 298V336L256 416L117.44 336V298" stroke="#F4F5F0" stroke-width="28" stroke-linecap="butt" stroke-linejoin="miter"/>
+    <path d="M72 256H126" stroke="#FF4D2E" stroke-width="20" stroke-linecap="butt"/>
+    <path d="M386 256H440" stroke="#FF4D2E" stroke-width="20" stroke-linecap="butt"/>
+    <rect x="162" y="206" width="188" height="100" rx="50" fill="#0D1014" stroke="#2E3746" stroke-width="4"/>
+    <rect x="196" y="238" width="36" height="36" rx="10" fill="#F4F5F0"/>
+    <circle cx="298" cy="256" r="24" fill="#FF4D2E"/>
+    <circle cx="298" cy="256" r="9" fill="#0D1014"/>
+    <circle cx="256" cy="96" r="14" fill="#FF4D2E"/>
+    <circle cx="256" cy="416" r="12" fill="#F4F5F0"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="320" y="176" fill="#F4F5F0" font-family="'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif" font-size="76" font-weight="700" letter-spacing="-2.5">data<tspan fill="#FF4D2E">-</tspan>droid<tspan fill="#FF4D2E">-</tspan>hub</text>
+  <!-- Subtitle / Telemetry Descriptor -->
+  <text x="324" y="226" fill="#8C96A6" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, monospace" font-size="22" font-weight="500" letter-spacing="3.5">ZERO-PROXY DATA EXTRACTION ACTORS</text>
+</svg>

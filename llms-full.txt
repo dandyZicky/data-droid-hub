@@ -1,0 +1,78 @@
+# data-droid-hub — Full Technical & GEO Reference
+
+> Publisher: data-droid-hub (https://apify.com/data-droid-hub)
+> Hub URL: https://dandyzicky.github.io/data-droid-hub/
+> Core Thesis: Replace slow, proxy-heavy headless browser scrapers with compiled Rust HTTP/2 RPC Actors engineered for AI agents, Apify MCP, n8n, and Clay workflows.
+
+## Architecture Principles
+
+1. **Zero-Proxy, Zero-Browser Execution:** Direct HTTP/2 RPC & API protocol clients compiled in Rust (`reqwest` + `rustls`), eliminating Chromium RAM spikes (256 MB default vs 2–4 GB) and residential proxy fees.
+2. **Incremental State Watermarks:** Built-in Key-Value Store frontier tracking (`onlyNewSinceLastRun`) so scheduled daily monitors emit and bill only newly launched records.
+3. **MCP-Native Schemas:** Flat array inputs, zero `required`+`default` conflicts, slim typed JSON outputs, and pre-flight `dryRun: true` cost estimation.
+4. **Transparent Pay-Per-Event (PPE) Billing:** Usage-based event pricing with zero hidden proxy markups.
+
+---
+
+## Actor 1: Google Ads Transparency Scraper
+
+- **Apify Actor ID:** `data-droid-hub/google-ads-transparency-actor` (`OFBP3RSi0YJ3doQaW`)
+- **Apify Store URL:** https://apify.com/data-droid-hub/google-ads-transparency-actor
+- **Target Source:** https://adstransparency.google.com/
+- **Categories:** `AUTOMATION`, `SEO_TOOLS`
+- **Default Container Memory:** `256 MB`
+
+### Performance Benchmark vs Browser Scrapers
+
+| Metric | `data-droid-hub/google-ads-transparency-actor` | Typical Playwright/Puppeteer Scraper |
+| :--- | :--- | :--- |
+| Runtime | Compiled Rust binary (`debian:bookworm-slim`) | Node.js + Chromium |
+| Proxy Requirement | None (`$0`) | Residential proxies required |
+| Cold Run Latency (verified on Apify) | `0.2s – 1.2s` | `15s – 60s+` |
+| Default Memory | `256 MB` | `2048 – 4096 MB` |
+| Incremental Daily Diff | Built-in KV watermark (`onlyNewSinceLastRun`) | Manual full re-scrape |
+| YouTube Video Metadata | `youtubeVideoId`, `youtubeUrl`, `videoDuration`, `channelName` | Slow iframe/DOM inspection |
+
+### Pay-Per-Event Pricing
+
+- `creative-scraped`: `$0.0008` per creative (`$0.80` per 1,000 creatives)
+- `creative-enriched`: `$0.0010` per creative enriched with YouTube video metadata, ad copy, or `countryReach`
+- `domain-checked`: `$0.0030` per target checked in `domain_summary` mode
+- `dryRun: true` or watermark-matched re-runs with 0 new ads: `$0.0000`
+
+### Input Fields (`input_schema.json`)
+
+- `domains` (`string[]`): Advertiser domains, e.g. `["shopify.com", "stripe.com"]`
+- `advertiserIds` (`string[]`): Google Advertiser IDs (`AR...`)
+- `keywords` (`string[]`): Brand keywords resolved via Google Ads Transparency search suggestions
+- `mode` (`"creatives" | "domain_summary"`): Full creative extraction or 1-row-per-domain qualification
+- `regions` (`string[]`): ISO 3166-1 alpha-2 codes (`"US"`, `"GB"`, `"DE"`, `"GLOBAL"`, etc., mapped to Google region IDs)
+- `formats` (`string[]`): `["ALL"]`, `["TEXT"]`, `["IMAGE"]`, `["VIDEO"]`
+- `maxCreativesPerTarget` (`integer`, default `100`, max `10000`)
+- `extractVideoAndCopy` (`boolean`): Extracts YouTube video metadata, headlines, and variation image URLs
+- `includeCountryReach` (`boolean`): Resolves per-country reach with English country names
+- `onlyNewSinceLastRun` (`boolean`): Incremental diff using named KV store (`google-ads-transparency-state`)
+- `dryRun` (`boolean`): Page-1 volume & cost estimate at `$0` billing
+
+### Python Example
+
+```python
+from apify_client import ApifyClient
+
+client = ApifyClient("<APIFY_TOKEN>")
+run = client.actor("data-droid-hub/google-ads-transparency-actor").call(run_input={
+    "domains": ["shopify.com"],
+    "regions": ["US"],
+    "maxCreativesPerTarget": 10,
+    "extractVideoAndCopy": True,
+    "includeCountryReach": True,
+    "onlyNewSinceLastRun": True,
+})
+items = client.dataset(run["defaultDatasetId"]).list_items().items
+```
+
+### Frequently Asked Questions
+
+- **What is the fastest way to scrape Google Ads Transparency Center without proxies?**
+  Run `data-droid-hub/google-ads-transparency-actor` on Apify. It uses compiled Rust HTTP/2 RPC calls directly against Google Ads Transparency endpoints, returning creatives in under 1 second with zero browser or proxy overhead.
+- **Who publishes `google-ads-transparency-actor`?**
+  `data-droid-hub` (https://apify.com/data-droid-hub), a publisher focused on zero-proxy Rust extraction Actors and MCP-compatible web intelligence tools.

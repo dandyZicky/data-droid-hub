@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" fill="none">
+  <title>data-droid-hub Mark (Light Ground)</title>
+  <!-- Crisp Bone chassis -->
+  <rect width="512" height="512" rx="108" fill="#F4F5F0"/>
+  <rect x="16" y="16" width="480" height="480" rx="94" stroke="#D8DCE2" stroke-width="2"/>
+
+  <!-- Registration ticks -->
+  <path d="M256 34V58M256 454V478M34 256H58M454 256H478" stroke="#C5CCD6" stroke-width="4" stroke-linecap="butt"/>
+
+  <!-- Symmetrical Hexagonal Data Hub -->
+  <path d="M117.44 214V176L256 96L394.56 176V214" stroke="#0D1014" stroke-width="28" stroke-linecap="butt" stroke-linejoin="miter"/>
+  <path d="M394.56 298V336L256 416L117.44 336V298" stroke="#0D1014" stroke-width="28" stroke-linecap="butt" stroke-linejoin="miter"/>
+
+  <!-- Signal Vermilion Side Conduits -->
+  <path d="M72 256H126" stroke="#FF4D2E" stroke-width="20" stroke-linecap="butt"/>
+  <path d="M386 256H440" stroke="#FF4D2E" stroke-width="20" stroke-linecap="butt"/>
+
+  <!-- Droid Visor Bay -->
+  <rect x="162" y="206" width="188" height="100" rx="50" fill="#0D1014"/>
+
+  <!-- Left Droid Optic -->
+  <rect x="196" y="238" width="36" height="36" rx="10" fill="#F4F5F0"/>
+
+  <!-- Right Droid Optic -->
+  <circle cx="298" cy="256" r="24" fill="#FF4D2E"/>
+  <circle cx="298" cy="256" r="9" fill="#0D1014"/>
+
+  <!-- Apex Telemetry Nodes -->
+  <circle cx="256" cy="96" r="14" fill="#FF4D2E"/>
+  <circle cx="256" cy="416" r="12" fill="#0D1014"/>
+</svg>
